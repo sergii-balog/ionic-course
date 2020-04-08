@@ -2,25 +2,42 @@ import { NgModule } from "@angular/core";
 import { PreloadAllModules, RouterModule, Routes } from "@angular/router";
 
 const routes: Routes = [
-  { path: "", redirectTo: "recipes", pathMatch: "full" },
+  { path: "", redirectTo: "auth", pathMatch: "full" },
   {
-    path: "home",
+    path: "auth",
     loadChildren: () =>
-      import("./home/home.module").then((m) => m.HomePageModule),
+      import("./pages/auth/auth.module").then((m) => m.AuthPageModule),
   },
   {
-    path: "recipes",
-    pathMatch: "full",
+    path: "places",
     loadChildren: () =>
-      import("./recipes/recipes.module").then((m) => m.RecipesPageModule),
+      import("./pages/places/places.module").then((m) => m.PlacesPageModule),
   },
   {
-    path: "recipes/:recipeId",
+    path: "bookings",
     loadChildren: () =>
-      import("./recipes/recipes-detail/recipes-detail.module").then(
-        (m) => m.RecipesDetailPageModule
+      import("./pages/bookings/bookings.module").then(
+        (m) => m.BookingsPageModule
       ),
   },
+  // {
+  //   path: "home",
+  //   loadChildren: () =>
+  //     import("./old_recipes/home/home.module").then((m) => m.HomePageModule),
+  // },
+  // {
+  //   path: "recipes",
+  //   pathMatch: "full",
+  //   loadChildren: () =>
+  //     import("./old_recipes/recipes/recipes.module").then((m) => m.RecipesPageModule),
+  // },
+  // {
+  //   path: "recipes/:recipeId",
+  //   loadChildren: () =>
+  //     import("./old_recipes/recipes/recipes-detail/recipes-detail.module").then(
+  //       (m) => m.RecipesDetailPageModule
+  //     ),
+  // },
 ];
 
 @NgModule({
