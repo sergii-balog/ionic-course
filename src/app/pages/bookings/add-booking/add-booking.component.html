@@ -1,0 +1,20 @@
+<ion-header>
+  <ion-toolbar color="primary">
+    <ion-title>{{ place.title }}</ion-title>
+    <ion-buttons slot="primary">
+      <ion-buttons (click)="cancel()">
+        <ion-icon name="close" slot="icon-only"></ion-icon>
+      </ion-buttons>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+<ion-content class="ion-padding">
+  <h3 class="ion-text-center">{{ place.description }}</h3>
+  <ion-img [src]="place.imageUrl"></ion-img>
+  <ion-text color="medium">
+    <h5 class="ion-text-center">${{ place.price }} / Monthly</h5>
+  </ion-text>
+  <ion-button color="primary" expand="block" (click)="book()"
+    >Place order</ion-button
+  >
+</ion-content>
