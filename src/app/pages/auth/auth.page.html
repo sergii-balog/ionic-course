@@ -1,12 +1,17 @@
 <ion-header>
   <ion-toolbar color="primary">
-    <ion-buttons slot="end" class="ion-padding-end">
-      <ion-icon name="key" slot="icon-only"> </ion-icon>
-    </ion-buttons>
     <ion-title>Authenticate</ion-title>
   </ion-toolbar>
 </ion-header>
 
-<ion-content>
-  <ion-button color="primary" (click)="login()">Login</ion-button>
+<ion-content class="ion-padding">
+  <div class="ion-text-center ion-padding">
+    <ion-text color="medium"
+      >Please login first to use our application.</ion-text
+    >
+  </div>
+  <ion-button color="primary" (click)="login()" expand="block"
+    ><ion-icon name="key-outline" class="ion-padding-end"></ion-icon>
+    Login</ion-button
+  >
 </ion-content>
