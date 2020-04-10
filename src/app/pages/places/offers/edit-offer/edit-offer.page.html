@@ -1,7 +1,92 @@
 <ion-header collapse="condense">
   <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="/places/tabs/offers"></ion-back-button>
+    </ion-buttons>
     <ion-title>Edit Offer</ion-title>
+    <ion-buttons slot="primary">
+      <ion-button (click)="editOffer()">
+        <ion-icon name="checkmark" slot="icon-only"></ion-icon>
+      </ion-button>
+    </ion-buttons>
   </ion-toolbar>
 </ion-header>
 
-<ion-content> </ion-content>
+<ion-content>
+  <form [formGroup]="form">
+    <ion-grid>
+      <ion-row>
+        <ion-col size-sm="6" offset-sm="3">
+          <ion-item>
+            <ion-label position="floating">Title</ion-label>
+            <ion-input
+              autocorrect
+              type="text"
+              formControlName="title"
+            ></ion-input>
+          </ion-item>
+          <ion-item
+            *ngIf="!form.get('title').valid && form.get('title').touched"
+            lines="none"
+          >
+            <ion-label color="danger">Title is required</ion-label>
+          </ion-item>
+          <ion-item>
+            <ion-label position="floating">Short description</ion-label>
+            <ion-textarea rows="3" formControlName="description"></ion-textarea>
+          </ion-item>
+          <ion-item
+            *ngIf="!form.get('description').valid && form.get('description').touched"
+            lines="none"
+          >
+            <ion-label color="danger">Between 1 and 200 characters</ion-label>
+          </ion-item>
+          <ion-item>
+            <ion-label position="floating">Price ($) / Monthly</ion-label>
+            <ion-input type="number" formControlName="price"></ion-input>
+          </ion-item>
+          <ion-item
+            *ngIf="!form.get('price').valid && form.get('price').touched"
+            lines="none"
+          >
+            <ion-label color="danger">Valid number is required</ion-label>
+          </ion-item>
+        </ion-col>
+      </ion-row>
+      <ion-row>
+        <ion-col size-sm="3" offset-sm="3">
+          <ion-item>
+            <ion-label position="floating">Available from</ion-label>
+            <ion-datetime
+              min="2020-04-01"
+              max="2021-12-31"
+              formControlName="dateFrom"
+            ></ion-datetime>
+          </ion-item>
+          <ion-item
+            *ngIf="!form.get('dateFrom').valid && form.get('dateFrom').touched"
+            lines="none"
+          >
+            <ion-label color="danger">Date is required</ion-label>
+          </ion-item>
+        </ion-col>
+        <ion-col size-sm="3">
+          <ion-item>
+            <ion-label position="floating">Available till</ion-label>
+            <ion-datetime
+              min="2020-04-01"
+              max="2021-12-31"
+              formControlName="dateTo"
+            ></ion-datetime>
+          </ion-item>
+          <ion-item
+            *ngIf="!form.get('dateTo').valid && form.get('dateTo').touched"
+            lines="none"
+          >
+            <ion-label color="danger">Date is required</ion-label>
+          </ion-item>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+  </form>
+</ion-content>

@@ -1,6 +1,6 @@
 <ion-header>
   <ion-toolbar color="primary">
-    <ion-title>Authenticate</ion-title>
+    <ion-title>Login</ion-title>
   </ion-toolbar>
 </ion-header>
 
@@ -10,8 +10,61 @@
       >Please login first to use our application.</ion-text
     >
   </div>
-  <ion-button color="primary" (click)="login()" expand="block"
-    ><ion-icon name="key-outline" class="ion-padding-end"></ion-icon>
-    Login</ion-button
-  >
+  <form #authForm="ngForm" (ngSubmit)="login(authForm)">
+    <ion-grid>
+      <ion-row>
+        <ion-col size-sm="6" offset-sm="3">
+          <ion-item>
+            <ion-label position="floating"
+              ><ion-icon name="mail"></ion-icon> E-mail</ion-label
+            >
+            <ion-input
+              type="email"
+              required
+              email
+              ngModel
+              name="email"
+              #emailControl="ngModel"
+            ></ion-input>
+          </ion-item>
+          <ion-item
+            *ngIf="!emailControl.valid && emailControl.touched"
+            lines="none"
+          >
+            <ion-label color="danger">Should be valid email</ion-label>
+          </ion-item>
+          <ion-item>
+            <ion-label position="floating"
+              ><ion-icon name="lock-closed"></ion-icon> Password</ion-label
+            >
+            <ion-input
+              type="password"
+              required
+              ngModel
+              name="password"
+              #passwordControl="ngModel"
+            ></ion-input>
+          </ion-item>
+          <ion-item
+            *ngIf="!passwordControl.valid && passwordControl.touched"
+            lines="none"
+          >
+            <ion-label color="danger">Password is required</ion-label>
+          </ion-item>
+        </ion-col>
+      </ion-row>
+      <ion-row>
+        <ion-col size-sm="6" offset-sm="3">
+          <ion-button
+            type="submit"
+            color="primary"
+            expand="block"
+            [disabled]="!authForm.valid"
+            ><ion-icon name="key-outline" class="ion-padding-end"></ion-icon>
+            Login</ion-button
+          >
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+  </form>
 </ion-content>
