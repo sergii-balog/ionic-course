@@ -1,28 +1,35 @@
+import { Component, OnInit, OnDestroy } from "@angular/core";
 import { Router } from "@angular/router";
-import { AlertController } from "@ionic/angular";
-import { OffersService } from "./../../../services/offers.service";
-import { Offer } from "./../../../models/offer";
-import { Component, OnInit } from "@angular/core";
-import { IonItemSliding } from "@ionic/angular";
+import { AlertController, IonItemSliding } from "@ionic/angular";
+import { Place } from "src/app/models/place";
+import { PlacesService } from "src/app/services/places.service";
+import { Subscription } from "rxjs";
 
 @Component({
   selector: "app-offers",
   templateUrl: "./offers.page.html",
   styleUrls: ["./offers.page.scss"],
 })
-export class OffersPage implements OnInit {
-  offers: Offer[] = [];
+export class OffersPage implements OnInit, OnDestroy {
+  places: Place[] = [];
+  placesSubscription: Subscription;
 
   constructor(
-    private offersService: OffersService,
+    private placesService: PlacesService,
     private alertController: AlertController,
     private router: Router
   ) {}
 
-  ngOnInit() {}
-  ionViewWillEnter() {
-    this.offers = this.offersService.offers;
+  ngOnDestroy(): void {
+    this.placesSubscription.unsubscribe();
   }
+
+  ngOnInit() {
+    this.placesSubscription = this.placesService.places.subscribe((places) => {
+      this.places = places;
+    });
+  }
+  ionViewWillEnter() {}
   editOffer(id: string, slider: IonItemSliding) {
     slider.closeOpened();
     this.router.navigateByUrl("/places/tabs/offers/edit/" + id);
@@ -33,7 +40,7 @@ export class OffersPage implements OnInit {
         header: "Confirmation",
         message:
           "Are you sure you want to delete offer <strong>" +
-          this.offers.find((x) => x.id === id).title +
+          this.places.find((x) => x.id === id).title +
           "</strong>?",
         buttons: [
           {
@@ -45,8 +52,7 @@ export class OffersPage implements OnInit {
           {
             text: "Delete",
             handler: () => {
-              this.offersService.deleteOffer(id);
-              this.offers = this.offersService.offers;
+              this.placesService.deletePlace(id);
             },
           },
         ],

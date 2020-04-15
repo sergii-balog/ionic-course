@@ -21,7 +21,9 @@ export class PlaceDetailsPage implements OnInit {
 
   ngOnInit() {
     const id = this.route.snapshot.paramMap.get("placeId");
-    this.place = this.service.getPlace(id);
+    this.service.getPlace(id).subscribe((place) => {
+      this.place = place;
+    });
   }
   openDetails(detailsUrl) {
     window.open(detailsUrl, "_system", "location=yes");

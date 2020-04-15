@@ -2,8 +2,10 @@ import { AlertController } from "@ionic/angular";
 import { Router } from "@angular/router";
 import { Component, OnInit } from "@angular/core";
 import { FormGroup, FormControl, Validators } from "@angular/forms";
-import { OffersService } from "src/app/services/offers.service";
-import { Offer } from "src/app/models/offer";
+import { PlacesService } from "src/app/services/places.service";
+import { Place } from "src/app/models/place";
+// import { OffersService } from "src/app/services/offers.service";
+// import { Offer } from "src/app/models/offer";
 
 @Component({
   selector: "app-new-offer",
@@ -14,7 +16,7 @@ export class NewOfferPage implements OnInit {
   form: FormGroup;
 
   constructor(
-    private offersService: OffersService,
+    private placesService: PlacesService,
     private router: Router,
     private alertController: AlertController
   ) {
@@ -52,34 +54,40 @@ export class NewOfferPage implements OnInit {
     // console.log("adding...", this.form.value);
     // const d1 = new Date(this.form.get("dateFrom").value);
     // console.log(d1.getFullYear(), d1.getMonth() + 1, d1.getDate());
-    this.offersService.addOffer(
-      new Offer(
-        this.uuidv4(),
-        this.form.value.title,
-        this.form.value.description,
-        this.form.value.price,
-        new Date(this.form.value.dateFrom),
-        new Date(this.form.value.dateTo)
+    this.placesService
+      .addPlace(
+        new Place(
+          this.uuidv4(),
+          this.form.value.title,
+          this.form.value.description,
+          "http://www.google.com",
+          "https://i.ytimg.com/vi/rdaZ5HEvZmg/maxresdefault.jpg",
+          this.form.value.price,
+          new Date(this.form.value.dateFrom),
+          new Date(this.form.value.dateTo),
+          "123"
+        )
       )
-    );
-    this.alertController
-      .create({
-        header: "Confirmation",
-        message:
-          "Offer <strong>" +
-          this.form.value.title +
-          "</strong> added successfully",
-        buttons: [
-          {
-            text: "Ok",
-            handler: () => {
-              this.router.navigateByUrl("/places/tabs/offers");
-            },
-          },
-        ],
-      })
-      .then((element) => {
-        element.present();
+      .subscribe((places) => {
+        this.alertController
+          .create({
+            header: "Confirmation",
+            message:
+              "Offer <strong>" +
+              this.form.value.title +
+              "</strong> added successfully",
+            buttons: [
+              {
+                text: "Ok",
+                handler: () => {
+                  this.router.navigateByUrl("/places/tabs/offers");
+                },
+              },
+            ],
+          })
+          .then((element) => {
+            element.present();
+          });
       });
   }
   uuidv4() {

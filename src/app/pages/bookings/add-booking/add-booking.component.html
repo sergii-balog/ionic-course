@@ -9,12 +9,101 @@
   </ion-toolbar>
 </ion-header>
 <ion-content class="ion-padding">
-  <h3 class="ion-text-center">{{ place.description }}</h3>
-  <ion-img [src]="place.imageUrl"></ion-img>
-  <ion-text color="medium">
-    <h5 class="ion-text-center">${{ place.price }} / Monthly</h5>
-  </ion-text>
-  <ion-button color="primary" expand="block" (click)="book()"
-    >Place order</ion-button
-  >
+  <form [formGroup]="form">
+    <ion-grid>
+      <ion-row>
+        <ion-col size-sm="8" offset-sm="2">
+          <ion-item>
+            <ion-label position="floating">First Name</ion-label>
+            <ion-input
+              autocorrect
+              type="text"
+              formControlName="firstName"
+            ></ion-input>
+          </ion-item>
+          <ion-item
+            *ngIf="
+              !form.get('firstName').valid && form.get('firstName').touched
+            "
+            lines="none"
+          >
+            <ion-label color="danger">First Name is required</ion-label>
+          </ion-item>
+          <ion-item>
+            <ion-label position="floating">Last Name</ion-label>
+            <ion-input
+              autocorrect
+              type="text"
+              formControlName="lastName"
+            ></ion-input>
+          </ion-item>
+          <ion-item
+            *ngIf="!form.get('lastName').valid && form.get('lastName').touched"
+            lines="none"
+          >
+            <ion-label color="danger">First Name is required</ion-label>
+          </ion-item>
+          <ion-item>
+            <ion-label position="floating">Guests Number</ion-label>
+            <ion-select
+              formControlName="numberGuests"
+              placeholder="Number of guests"
+              interface="popover"
+            >
+              <ion-select-option value="1">1</ion-select-option>
+              <ion-select-option value="2">2</ion-select-option>
+              <ion-select-option value="3">3</ion-select-option>
+              <ion-select-option value="4">4</ion-select-option>
+            </ion-select>
+          </ion-item>
+          <ion-item
+            *ngIf="
+              !form.get('numberGuests').valid &&
+              form.get('numberGuests').touched
+            "
+            lines="none"
+          >
+            <ion-label color="danger">Guests Number is required</ion-label>
+          </ion-item>
+        </ion-col>
+      </ion-row>
+      <ion-row>
+        <ion-col size-sm="4" offset-sm="2">
+          <ion-item>
+            <ion-label position="floating">From</ion-label>
+            <ion-datetime
+              [min]="place.fromDate.toISOString()"
+              [max]="place.toDate.toISOString()"
+              formControlName="dateFrom"
+            ></ion-datetime>
+          </ion-item>
+          <ion-item
+            *ngIf="!form.get('dateFrom').valid && form.get('dateFrom').touched"
+            lines="none"
+          >
+            <ion-label color="danger">Date is required</ion-label>
+          </ion-item>
+        </ion-col>
+        <ion-col size-sm="4">
+          <ion-item>
+            <ion-label position="floating">Available till</ion-label>
+            <ion-datetime
+              [min]="form.get('dateFrom').value"
+              [max]="place.toDate.toISOString()"
+              formControlName="dateTo"
+            ></ion-datetime>
+          </ion-item>
+          <ion-item
+            *ngIf="!form.get('dateTo').valid && form.get('dateTo').touched"
+            lines="none"
+          >
+            <ion-label color="danger">Date is required</ion-label>
+          </ion-item>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+    <ion-button color="primary" expand="block" (click)="book()"
+      >Place order</ion-button
+    >
+  </form>
 </ion-content>
