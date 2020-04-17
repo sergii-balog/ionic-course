@@ -1,9 +1,10 @@
 import { Component } from "@angular/core";
 
 import { Platform } from "@ionic/angular";
-import { SplashScreen } from "@ionic-native/splash-screen/ngx";
-import { StatusBar } from "@ionic-native/status-bar/ngx";
 import { AuthService } from "./services/auth.service";
+import { Plugins, StatusBarStyle } from "@capacitor/core";
+import { BookingService } from "./services/booking.service";
+import { take } from "rxjs/operators";
 
 @Component({
   selector: "app-root",
@@ -13,17 +14,24 @@ import { AuthService } from "./services/auth.service";
 export class AppComponent {
   constructor(
     private platform: Platform,
-    private splashScreen: SplashScreen,
-    private statusBar: StatusBar,
-    private authService: AuthService
+    private authService: AuthService,
+    private bookingService: BookingService
   ) {
     this.initializeApp();
   }
 
   initializeApp() {
     this.platform.ready().then(() => {
-      this.statusBar.styleDefault();
-      this.splashScreen.hide();
+      this.bookingService.bookings
+        .pipe(take(1))
+        .toPromise()
+        .then(() => {
+          const { SplashScreen, StatusBar } = Plugins;
+          if (this.platform.is("hybrid")) {
+            SplashScreen.hide();
+            StatusBar.setStyle({ style: StatusBarStyle.Light });
+          }
+        });
     });
   }
   logOut() {

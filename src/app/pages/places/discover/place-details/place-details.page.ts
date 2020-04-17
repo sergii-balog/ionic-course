@@ -1,9 +1,14 @@
 import { PlacesService } from "./../../../../services/places.service";
 import { AddBookingComponent } from "./../../../bookings/add-booking/add-booking.component";
 import { Component, OnInit } from "@angular/core";
-import { NavController, ModalController } from "@ionic/angular";
+import {
+  NavController,
+  ModalController,
+  LoadingController,
+} from "@ionic/angular";
 import { ActivatedRoute } from "@angular/router";
 import { Place } from "src/app/models/place";
+import { BookingService } from "src/app/services/booking.service";
 
 @Component({
   selector: "app-place-details",
@@ -16,7 +21,9 @@ export class PlaceDetailsPage implements OnInit {
     private navController: NavController,
     private modalController: ModalController,
     private route: ActivatedRoute,
-    private service: PlacesService
+    private service: PlacesService,
+    private bookingService: BookingService,
+    private loadingController: LoadingController
   ) {}
 
   ngOnInit() {
@@ -40,7 +47,28 @@ export class PlaceDetailsPage implements OnInit {
       })
       .then((result) => {
         console.log(result.data, result.role);
+        if (result.role === "confirm") {
+          const data = result.data;
+          this.loadingController
+            .create({ keyboardClose: true, message: "Placing order ..." })
+            .then((element) => {
+              element.present();
+              this.bookingService
+                .addBooking(
+                  this.place.id,
+                  this.place.title,
+                  data.firstName,
+                  data.lastName,
+                  data.numberGuests,
+                  new Date(data.dateFrom),
+                  new Date(data.dateTo)
+                )
+                .subscribe(() => {
+                  element.dismiss();
+                  this.navController.navigateBack("/bookings");
+                });
+            });
+        }
       });
-    //this.navController.navigateBack("/places/tabs/discover");
   }
 }

@@ -1,23 +1,36 @@
-import { BookingService } from "./../../services/booking.service";
-import { Component, OnInit } from "@angular/core";
+import { Component, OnInit, OnDestroy } from "@angular/core";
+import {
+  AlertController,
+  IonItemSliding,
+  LoadingController,
+} from "@ionic/angular";
+import { Subscription } from "rxjs";
 import { Booking } from "src/app/models/booking";
-import { IonItemSliding, AlertController } from "@ionic/angular";
+import { BookingService } from "./../../services/booking.service";
 
 @Component({
   selector: "app-bookings",
   templateUrl: "./bookings.page.html",
   styleUrls: ["./bookings.page.scss"],
 })
-export class BookingsPage implements OnInit {
+export class BookingsPage implements OnInit, OnDestroy {
   bookings: Booking[];
-
+  subscpirtion: Subscription;
+  isLoading = true;
   constructor(
     private bookingService: BookingService,
-    public alertController: AlertController
+    public alertController: AlertController,
+    private loadingController: LoadingController
   ) {}
+  ngOnDestroy(): void {
+    this.subscpirtion.unsubscribe();
+  }
 
   ngOnInit() {
-    this.bookings = this.bookingService.bookings;
+    this.subscpirtion = this.bookingService.bookings.subscribe((bookings) => {
+      this.bookings = bookings;
+      this.isLoading = false;
+    });
   }
   cancelBooking(id: string, slider: IonItemSliding) {
     this.alertController
@@ -37,8 +50,14 @@ export class BookingsPage implements OnInit {
           {
             text: "Delete",
             handler: () => {
-              this.bookingService.deleteBooking(id);
-              this.bookings = this.bookingService.bookings;
+              this.loadingController
+                .create({ keyboardClose: true, message: "Deleting ..." })
+                .then((element) => {
+                  element.present();
+                  this.bookingService.deleteBooking(id).subscribe(() => {
+                    element.dismiss();
+                  });
+                });
             },
           },
         ],

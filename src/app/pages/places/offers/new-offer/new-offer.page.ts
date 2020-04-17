@@ -4,6 +4,7 @@ import { Component, OnInit } from "@angular/core";
 import { FormGroup, FormControl, Validators } from "@angular/forms";
 import { PlacesService } from "src/app/services/places.service";
 import { Place } from "src/app/models/place";
+import { ServiceHelper } from "src/app/services/serviceHelper";
 // import { OffersService } from "src/app/services/offers.service";
 // import { Offer } from "src/app/models/offer";
 
@@ -57,7 +58,7 @@ export class NewOfferPage implements OnInit {
     this.placesService
       .addPlace(
         new Place(
-          this.uuidv4(),
+          ServiceHelper.getNewGuid(),
           this.form.value.title,
           this.form.value.description,
           "http://www.google.com",
@@ -89,14 +90,5 @@ export class NewOfferPage implements OnInit {
             element.present();
           });
       });
-  }
-  uuidv4() {
-    return "xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx".replace(/[xy]/g, function (
-      c
-    ) {
-      let r = (Math.random() * 16) | 0,
-        v = c === "x" ? r : (r & 0x3) | 0x8;
-      return v.toString(16);
-    });
   }
 }

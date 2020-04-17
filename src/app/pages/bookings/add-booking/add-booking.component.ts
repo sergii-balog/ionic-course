@@ -51,26 +51,27 @@ export class AddBookingComponent implements OnInit {
       this.form.markAllAsTouched();
       return;
     }
-    this.alertController
-      .create({
-        header: "Booking confirmation",
-        message:
-          "<strong>" +
-          this.form.value.firstName +
-          "</strong>, your booking for " +
-          this.form.value.numberGuests +
-          " guests has been confirmed!",
-        buttons: [
-          {
-            text: "Ok",
-            handler: () => {
-              this.modalController.dismiss(this.form.value, "confirm");
-            },
-          },
-        ],
-      })
-      .then((element) => {
-        element.present();
-      });
+    this.modalController.dismiss(this.form.value, "confirm");
+    // this.alertController
+    //   .create({
+    //     header: "Booking confirmation",
+    //     message:
+    //       "<strong>" +
+    //       this.form.value.firstName +
+    //       "</strong>, your booking for " +
+    //       this.form.value.numberGuests +
+    //       " guests has been confirmed!",
+    //     buttons: [
+    //       {
+    //         text: "Ok",
+    //         handler: () => {
+    //           this.modalController.dismiss(this.form.value, "confirm");
+    //         },
+    //       },
+    //     ],
+    //   })
+    //   .then((element) => {
+    //     element.present();
+    //   });
   }
 }
