@@ -24,10 +24,7 @@ export class BookingService {
   constructor(
     private authService: AuthService,
     private httpClient: HttpClient
-  ) {
-    //
-    this.fetchBookings().pipe(take(1)).subscribe();
-  }
+  ) {}
   private fetchBookings(): Observable<Booking[]> {
     return this.httpClient
       .get<{ [key: string]: BookingDTO }>(
