@@ -4,7 +4,7 @@
 
 export const environment = {
   production: false,
-  gApiKey: "AIzaSyBmE_dA8tSU0ms4qssnP_f9eiaDnGb3RBc",
+  gApiKey: "",
 };
 
 /*
