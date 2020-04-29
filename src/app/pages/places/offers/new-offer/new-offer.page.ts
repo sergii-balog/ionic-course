@@ -5,6 +5,7 @@ import { FormGroup, FormControl, Validators } from "@angular/forms";
 import { PlacesService } from "src/app/services/places.service";
 import { Place } from "src/app/models/place";
 import { ServiceHelper } from "src/app/services/serviceHelper";
+import { PlaceLocation } from "src/app/models/google-maps";
 // import { OffersService } from "src/app/services/offers.service";
 // import { Offer } from "src/app/models/offer";
 
@@ -42,12 +43,18 @@ export class NewOfferPage implements OnInit {
         updateOn: "blur",
         validators: [Validators.required],
       }),
+      location: new FormControl(null, {
+        validators: [Validators.required],
+      }),
     });
   }
 
   ngOnInit() {}
-
+  onLocationPicked(place: PlaceLocation) {
+    this.form.patchValue({ location: place });
+  }
   addNewOffer() {
+    console.log(this.form.value);
     if (!this.form.valid) {
       this.form.markAllAsTouched();
       return;

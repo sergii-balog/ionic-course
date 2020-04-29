@@ -2,7 +2,7 @@ import { Component } from "@angular/core";
 
 import { Platform } from "@ionic/angular";
 import { AuthService } from "./services/auth.service";
-import { Plugins, StatusBarStyle } from "@capacitor/core";
+import { Plugins, Capacitor } from "@capacitor/core";
 import { BookingService } from "./services/booking.service";
 import { take } from "rxjs/operators";
 
@@ -26,10 +26,9 @@ export class AppComponent {
         .pipe(take(1))
         .toPromise()
         .then(() => {
-          const { SplashScreen, StatusBar } = Plugins;
-          if (this.platform.is("hybrid")) {
+          const { SplashScreen } = Plugins;
+          if (Capacitor.isPluginAvailable("SplashScreen")) {
             SplashScreen.hide();
-            StatusBar.setStyle({ style: StatusBarStyle.Light });
           }
         });
     });
