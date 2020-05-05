@@ -1,20 +1,22 @@
-import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
-import { FormsModule } from '@angular/forms';
+import { NgModule } from "@angular/core";
+import { CommonModule } from "@angular/common";
+import { FormsModule } from "@angular/forms";
 
-import { IonicModule } from '@ionic/angular';
+import { IonicModule } from "@ionic/angular";
 
-import { BookingsPageRoutingModule } from './bookings-routing.module';
+import { BookingsPageRoutingModule } from "./bookings-routing.module";
 
-import { BookingsPage } from './bookings.page';
+import { BookingsPage } from "./bookings.page";
+import { SharedModule } from "src/app/shared/shared.module";
 
 @NgModule({
   imports: [
     CommonModule,
     FormsModule,
     IonicModule,
-    BookingsPageRoutingModule
+    BookingsPageRoutingModule,
+    SharedModule,
   ],
-  declarations: [BookingsPage]
+  declarations: [BookingsPage],
 })
 export class BookingsPageModule {}

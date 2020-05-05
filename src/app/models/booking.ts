@@ -8,6 +8,7 @@ export class Booking {
     public lastName: string,
     public guestNumber: number,
     public dateFrom: Date,
-    public dateTo:Date
+    public dateTo: Date,
+    public image: string
   ) {}
 }

@@ -31,6 +31,9 @@
       <ion-col size-md="6" offset-md="3">
         <ion-item-sliding *ngFor="let booking of bookings" #slider>
           <ion-item>
+            <ion-thumbnail slot="start" *ngIf="booking.image">
+              <ion-img [src]="booking.image"></ion-img>
+            </ion-thumbnail>
             <ion-label>
               <h5>{{booking.placeTitle}}</h5>
               <p>

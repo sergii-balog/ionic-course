@@ -39,6 +39,9 @@ export class AddBookingComponent implements OnInit {
         updateOn: "blur",
         validators: [Validators.required],
       }),
+      image: new FormControl(null, {
+        validators: [Validators.required],
+      }),
     });
   }
 
@@ -73,5 +76,8 @@ export class AddBookingComponent implements OnInit {
     //   .then((element) => {
     //     element.present();
     //   });
+  }
+  onImagePicked(image) {
+    this.form.patchValue({ image: image });
   }
 }

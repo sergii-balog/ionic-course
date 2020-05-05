@@ -7,4 +7,5 @@ export interface BookingDTO {
   guestNumber: number;
   dateFrom: string;
   dateTo: string;
+  image: string;
 }

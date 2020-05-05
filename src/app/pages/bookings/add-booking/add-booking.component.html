@@ -86,7 +86,7 @@
         </ion-col>
         <ion-col size-sm="4">
           <ion-item>
-            <ion-label position="floating">Available till</ion-label>
+            <ion-label position="floating">Till</ion-label>
             <ion-datetime
               [min]="form.get('dateFrom').value"
               [max]="place.toDate.toISOString()"
@@ -98,6 +98,20 @@
             lines="none"
           >
             <ion-label color="danger">Date is required</ion-label>
+          </ion-item>
+        </ion-col>
+      </ion-row>
+      <ion-row>
+        <ion-col size-sm="4" offset-sm="2">
+          <ion-item lines="none">
+            <ion-label class="ion-text-center">Take your photo</ion-label>
+          </ion-item>
+          <image-picker (imagePicked)="onImagePicked($event)"></image-picker>
+          <ion-item
+            *ngIf="!form.get('image').valid && form.get('image').touched"
+            lines="none"
+          >
+            <ion-label color="danger">Photo is required</ion-label>
           </ion-item>
         </ion-col>
       </ion-row>

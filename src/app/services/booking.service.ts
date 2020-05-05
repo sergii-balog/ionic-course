@@ -46,7 +46,8 @@ export class BookingService {
                   dto.lastName,
                   dto.guestNumber,
                   new Date(dto.dateFrom),
-                  new Date(dto.dateTo)
+                  new Date(dto.dateTo),
+                  dto.image
                 )
               );
             }
@@ -78,7 +79,8 @@ export class BookingService {
     lastName: string,
     guestNumber: number,
     dateFrom: Date,
-    dateTo: Date
+    dateTo: Date,
+    image: string
   ): Observable<any> {
     const newBooking = new Booking(
       ServiceHelper.getNewGuid(),
@@ -89,7 +91,8 @@ export class BookingService {
       lastName,
       guestNumber,
       dateFrom,
-      dateTo
+      dateTo,
+      image
     );
     let newId = "";
     return this.httpClient

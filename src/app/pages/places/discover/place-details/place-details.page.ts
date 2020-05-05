@@ -46,7 +46,6 @@ export class PlaceDetailsPage implements OnInit {
         return element.onDidDismiss();
       })
       .then((result) => {
-        console.log(result.data, result.role);
         if (result.role === "confirm") {
           const data = result.data;
           this.loadingController
@@ -61,7 +60,8 @@ export class PlaceDetailsPage implements OnInit {
                   data.lastName,
                   data.numberGuests,
                   new Date(data.dateFrom),
-                  new Date(data.dateTo)
+                  new Date(data.dateTo),
+                  data.image
                 )
                 .subscribe(() => {
                   element.dismiss();
