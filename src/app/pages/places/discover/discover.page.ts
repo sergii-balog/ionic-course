@@ -40,7 +40,6 @@ export class DiscoverPage implements OnInit, OnDestroy {
       this.places = this.loadedPlaces;
     } else {
       this.places = this.places.filter((x) => x.id !== "24f34qb");
-      console.log(this.places);
     }
     this.featuredPlace = this.places[0];
   }

@@ -1,0 +1,16 @@
+{
+  "appId": "com.lanteria.ioniccourse",
+  "appName": "Course BnB",
+  "bundledWebRuntime": false,
+  "npmClient": "npm",
+  "webDir": "www",
+  "cordova": {},
+  "plugins": {
+    "SplashScreen": {
+      "launchAutoHide": true,
+      "showSpinner": true,
+      "spinnerColor": "#eeeeee",
+      "iosSpinnerStyle": "large"
+    }
+  }
+}

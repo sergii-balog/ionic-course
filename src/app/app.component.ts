@@ -5,6 +5,7 @@ import { AuthService } from "./services/auth.service";
 import { Plugins, Capacitor } from "@capacitor/core";
 import { BookingService } from "./services/booking.service";
 import { take } from "rxjs/operators";
+const { App } = Plugins;
 
 @Component({
   selector: "app-root",
@@ -31,6 +32,16 @@ export class AppComponent {
             SplashScreen.hide();
           }
         });
+      // this.authService
+      //   .getUserInfo()
+      //   .toPromise()
+      //   .then((user) => {
+      //     console.log("User initited");
+      //   });
+      // App.addListener("appStateChange", (state) => {
+      //   if (state.isActive) {
+      //   }
+      // });
     });
   }
   logOut() {

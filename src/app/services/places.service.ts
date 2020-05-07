@@ -25,7 +25,7 @@ export class PlacesService {
       "Quai Henri IV, Paris 4th",
       "Furnished - 2 Bedrooms.",
       "http://www.pariscorporatehousing.com/en/Corporate-Furnished-Rental-Quai-Henri-IV-Apartment-04021",
-      "http://www.pariscorporatehousing.com/content/apartments/04021/images/DSC_9905.jpg",
+      "https://q-xx.bstatic.com/xdata/images/hotel/840x460/134270931.jpg?k=b2d98098e1b4992167ea11052cfa9da15a0eb429bab0eb63fc1c673342443fa2&o=",
       5000,
       new Date(2020, 0, 1),
       new Date(2021, 11, 31),
